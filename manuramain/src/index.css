@@ -686,19 +686,6 @@ a:focus-visible {
     justify-content: center;
   }
 
-  /* Mobile "Randevu" button — primary style */
-  header .flex.lg\:hidden a[href="/randevu"] {
-    background-color: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
-    border: 1px solid hsl(var(--primary));
-    font-weight: 600;
-  }
-
-  header .flex.lg\:hidden a[href="/randevu"]:active,
-  header .flex.lg\:hidden a[href="/randevu"]:hover {
-    opacity: 0.85;
-    transform: scale(0.98);
-  }
 
   /* Mobile "Ana Sayfa" (Home) button — secondary style */
   header .flex.lg\:hidden a[href="/"] {
@@ -950,19 +937,6 @@ a:focus-visible {
     color: hsl(var(--primary));
   }
 
-  /* "Randevu Al" button (primary) */
-  header .fixed.inset-0 a[href="/randevu"][class*="bg-primary"],
-  header .fixed.inset-0 a[href="/randevu"] {
-    background-color: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
-    border: 1px solid hsl(var(--primary));
-  }
-
-  header .fixed.inset-0 a[href="/randevu"]:hover {
-    opacity: 0.85;
-    transform: scale(1.02);
-  }
-
   /* "Ana Sayfaya Dön" button (secondary) */
   header .fixed.inset-0 a[href="/"][class*="border"],
   header .fixed.inset-0 a[href="/"] {
@@ -1111,14 +1085,6 @@ header a[href="#"] {
 }
 
 /* ===== SERVICE CARD MOBILE TOUCH TARGET ===== */
-/* "İncele →" link — minimum 44px tap area with padding trick */
-@media (max-width: 639px) {
-  section#services a[href="/randevu"] {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.75rem 0;
-    min-height: 2.75rem;
-  }
 }
 
 /* ===== WHATSAPP FLOATING BUTTON ===== */
