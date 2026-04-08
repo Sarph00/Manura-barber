@@ -56,7 +56,7 @@ const Header = () => {
                 </div>
 
                 {/* Center: Logo */}
-                <a href="#" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                <a href="/" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
                     <img src={logo} alt="Manura Barbershops" className="h-11 md:h-12" />
                 </a>
 
