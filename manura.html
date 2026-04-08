@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manura Barbershops — Own Your Aura</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#08080b;
+  --bg2:#0f0f14;
+  --bg3:#16161d;
+  --line:rgba(255,255,255,.08);
+  --muted:#555566;
+  --silver:#9090a8;
+  --light:#c8c8dc;
+  --white:#f0efe9;
+  --gold:#c4974a;
+  --gold-l:#ddb96b;
+  --serif:'Cormorant Garamond',serif;
+  --head:'Syne',sans-serif;
+  --ease:cubic-bezier(.76,0,.24,1);
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--head);background:var(--bg);color:var(--white);overflow-x:hidden;cursor:none;}
+::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-thumb{background:var(--gold);}
+#cur{position:fixed;width:5px;height:5px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;}
+#curR{position:fixed;width:28px;height:28px;border-radius:50%;border:1px solid rgba(196,151,74,.35);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:68px;padding:0 clamp(1.25rem,4vw,3rem);display:flex;align-items:center;justify-content:space-between;transition:background .5s;}
+nav.sc{background:rgba(8,8,11,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);}
+.logo{text-decoration:none;}.logo-m{display:block;font-family:var(--head);font-weight:800;font-size:15px;letter-spacing:.28em;text-transform:uppercase;color:var(--white);}.logo-s{display:block;font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-top:2px;font-weight:400;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}.nav-links a{text-decoration:none;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--silver);transition:color .3s;}.nav-links a:hover{color:var(--white);}
+.nav-btn{padding:9px 22px;border:1px solid rgba(196,151,74,.4);font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:all .3s;}.nav-btn:hover{background:var(--gold);color:var(--bg);}
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:none;padding:4px;}.ham span{display:block;width:20px;height:1px;background:var(--white);transition:all .3s;}
+.mob{position:fixed;inset:0;z-index:490;background:var(--bg2);transform:translateX(100%);transition:transform .6s var(--ease);display:flex;flex-direction:column;justify-content:center;padding:0 2.5rem;gap:.4rem;}
+.mob.open{transform:none;}.mob a{text-decoration:none;font-size:clamp(2rem,8vw,3.2rem);font-weight:800;color:var(--white);opacity:0;transform:translateX(30px);transition:all .45s;letter-spacing:-.02em;}.mob.open a{opacity:1;transform:none;}.mob.open a:nth-child(1){transition-delay:.08s}.mob.open a:nth-child(2){transition-delay:.13s}.mob.open a:nth-child(3){transition-delay:.18s}.mob.open a:nth-child(4){transition-delay:.23s}.mob.open a:nth-child(5){transition-delay:.28s;color:var(--gold)}.mob a:hover{color:var(--gold);}
+/* HERO */
+.hero{height:100svh;min-height:560px;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s var(--ease);pointer-events:none;}
+.slide.on{opacity:1;pointer-events:auto;}
+.slide-img{position:absolute;inset:0;}.slide-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform 9s linear;}.slide.on .slide-img img{transform:scale(1);}
+.slide-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,8,11,.9) 0%,rgba(8,8,11,.55) 50%,rgba(8,8,11,.08) 100%);}
+.slide-body{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(1.25rem,4vw,3.5rem) clamp(3rem,6vh,5.5rem);}
+.slide-tag{display:flex;align-items:center;gap:12px;font-size:9px;font-weight:700;letter-spacing:.44em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;opacity:0;transform:translateY(12px);transition:opacity .6s ease .15s,transform .6s ease .15s;}.slide.on .slide-tag{opacity:1;transform:none;}.slide-tag::before{content:'';width:28px;height:.5px;background:var(--gold);}
+.slide-h1{font-family:var(--head);font-size:clamp(3rem,7vw,6rem);font-weight:800;line-height:1;letter-spacing:-.04em;color:var(--white);margin-bottom:1.25rem;opacity:0;transform:translateY(24px);transition:opacity .7s ease .25s,transform .7s ease .25s;}.slide.on .slide-h1{opacity:1;transform:none;}.slide-h1 i{font-family:var(--serif);font-style:italic;font-weight:300;color:var(--gold-l);letter-spacing:0;}
+.slide-p{font-size:clamp(13px,1.5vw,15px);font-weight:400;color:var(--light);line-height:1.85;max-width:420px;margin-bottom:2.5rem;opacity:0;transform:translateY(16px);transition:opacity .6s ease .38s,transform .6s ease .38s;}.slide.on .slide-p{opacity:1;transform:none;}
+.slide-btns{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;opacity:0;transform:translateY(12px);transition:opacity .6s ease .48s,transform .6s ease .48s;}.slide.on .slide-btns{opacity:1;transform:none;}
+.slide-portrait{position:absolute;right:clamp(3rem,6vw,8rem);top:50%;transform:translateY(-50%);width:min(240px,20vw);aspect-ratio:2/3;overflow:hidden;opacity:0;transition:opacity .9s ease .5s;}.slide.on .slide-portrait{opacity:1;}.slide-portrait img{width:100%;height:100%;object-fit:cover;filter:grayscale(15%);}.slide-portrait::after{content:'';position:absolute;inset:0;border:1px solid rgba(196,151,74,.2);}
+.hero-cnt{position:absolute;right:clamp(1.25rem,3vw,2.5rem);top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:8px;}.hero-cnt-n{font-family:var(--head);font-size:2rem;font-weight:800;color:var(--white);letter-spacing:-.05em;line-height:1;}.hero-cnt-l{width:1px;height:44px;background:linear-gradient(to bottom,var(--gold),transparent);}.hero-cnt-t{font-size:9px;font-weight:600;letter-spacing:.12em;color:var(--muted);}
+.hero-bot{position:absolute;bottom:clamp(1.5rem,3vh,2.5rem);right:clamp(1.25rem,3vw,2.5rem);z-index:10;display:flex;align-items:center;gap:1rem;}
+.dots{display:flex;gap:7px;align-items:center;}.dot{width:3px;height:3px;border-radius:50%;background:var(--muted);cursor:none;transition:all .35s;}.dot.a{width:22px;border-radius:2px;background:var(--gold);}
+.arrs{display:flex;gap:5px;}.arr{width:40px;height:40px;border:1px solid var(--line);background:rgba(8,8,11,.5);color:var(--white);cursor:none;display:flex;align-items:center;justify-content:center;transition:all .3s;}.arr:hover{border-color:var(--gold);color:var(--gold);}
+.progress{position:absolute;bottom:0;left:0;height:1.5px;background:var(--gold);width:0;z-index:10;}
+.scroll-hint{position:absolute;bottom:clamp(1.5rem,3vh,2.5rem);left:clamp(1.25rem,3vw,2.5rem);z-index:10;display:flex;align-items:center;gap:10px;font-size:8.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}.scroll-hint-bar{width:1px;height:38px;background:linear-gradient(to bottom,var(--gold),transparent);}
+/* TICKER */
+.ticker{background:var(--gold);overflow:hidden;padding:13px 0;}.ticker-track{display:flex;width:max-content;animation:tick 22s linear infinite;}.ticker-item{display:flex;align-items:center;gap:2rem;padding:0 2rem;font-size:9.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--bg);white-space:nowrap;}.ticker-sep{width:4px;height:4px;border-radius:50%;background:rgba(0,0,0,.3);}
+@keyframes tick{to{transform:translateX(-50%)}}
+/* EDITORIAL */
+.ep{display:grid;grid-template-columns:1fr 1fr;}.ep.flip{direction:rtl;}.ep.flip>*{direction:ltr;}
+.ep-img{position:relative;overflow:hidden;min-height:520px;}.ep-img img{width:100%;height:100%;object-fit:cover;transition:transform 7s var(--ease);}.ep:hover .ep-img img{transform:scale(1.04);}.ep-img-dim{position:absolute;inset:0;background:rgba(8,8,11,.3);}.ep-img-tag{position:absolute;top:2rem;left:2rem;font-size:8.5px;font-weight:700;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);opacity:.7;}.ep-img-num{position:absolute;bottom:2rem;right:2rem;font-family:var(--head);font-size:4rem;font-weight:800;color:rgba(196,151,74,.07);letter-spacing:-.05em;}
+.ep-body{padding:clamp(2.5rem,5vw,5.5rem) clamp(2rem,4vw,4.5rem);display:flex;flex-direction:column;justify-content:center;background:var(--bg2);}
+.ep-eye{display:flex;align-items:center;gap:12px;font-size:9px;font-weight:700;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;}.ep-eye::before{content:'';width:24px;height:.5px;background:var(--gold);}
+.ep-h{font-family:var(--head);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:800;line-height:1.08;letter-spacing:-.03em;color:var(--white);margin-bottom:1.5rem;}.ep-h i{font-family:var(--serif);font-weight:300;font-style:italic;color:var(--gold-l);letter-spacing:0;font-size:1.08em;}
+.ep-p{font-size:14px;font-weight:400;color:var(--silver);line-height:1.9;max-width:400px;margin-bottom:1.1rem;}
+.ep-link{display:inline-flex;align-items:center;gap:10px;font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:3px;transition:all .3s;margin-top:.75rem;}.ep-link:hover{color:var(--gold);border-color:var(--gold);gap:16px;}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}.stat{padding:clamp(2rem,4vh,3.5rem) 2rem;border-right:1px solid var(--line);text-align:center;transition:background .35s;}.stat:last-child{border:none;}.stat:hover{background:rgba(196,151,74,.04);}.stat-n{font-family:var(--head);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:800;color:var(--white);line-height:1;margin-bottom:.35rem;letter-spacing:-.04em;}.stat-n span{color:var(--gold);}.stat-l{font-size:9.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+/* SERVICES */
+#services{background:var(--bg);padding:clamp(4rem,8vh,8rem) clamp(1.25rem,4vw,3rem);}
+.sec-top{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:4rem;align-items:end;}
+.sec-eye{display:flex;align-items:center;gap:12px;font-size:9px;font-weight:700;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;}.sec-eye::before{content:'';width:24px;height:.5px;background:var(--gold);}
+.sec-h{font-family:var(--head);font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-.04em;color:var(--white);}.sec-h i{font-family:var(--serif);font-style:italic;font-weight:300;color:var(--gold-l);letter-spacing:0;}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);}
+.svc{background:var(--bg);padding:2.5rem 2rem;position:relative;overflow:hidden;cursor:none;transition:background .35s;}.svc:hover{background:var(--bg2);}.svc::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .45s var(--ease);}.svc:hover::after{width:100%;}
+.svc-n{font-family:var(--head);font-size:4.5rem;font-weight:800;color:rgba(196,151,74,.05);line-height:1;margin-bottom:.6rem;letter-spacing:-.06em;}
+.svc-ico{width:38px;height:38px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;transition:border-color .35s;}.svc:hover .svc-ico{border-color:var(--gold);}
+.svc-name{font-size:14px;font-weight:700;color:var(--white);letter-spacing:-.01em;margin-bottom:.5rem;}.svc-desc{font-size:12.5px;font-weight:400;color:var(--muted);line-height:1.8;margin-bottom:1.75rem;}.svc-price{font-family:var(--serif);font-size:1.5rem;font-weight:400;color:var(--gold);}.svc-dur{font-size:9.5px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:.25rem;}
+/* GALLERY */
+#gallery{padding:clamp(4rem,8vh,8rem) 0;background:var(--bg);}
+.gal-hdr{padding:0 clamp(1.25rem,4vw,3rem);margin-bottom:2.5rem;display:flex;justify-content:space-between;align-items:flex-end;}.gal-hint{font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--muted);}
+.gal-track{display:flex;gap:3px;overflow-x:auto;padding:0 clamp(1.25rem,4vw,3rem);scrollbar-width:none;cursor:grab;}.gal-track::-webkit-scrollbar{display:none;}.gal-track:active{cursor:grabbing;}
+.gc{flex:0 0 auto;position:relative;overflow:hidden;}.gc:nth-child(odd){width:clamp(240px,30vw,360px);height:460px;}.gc:nth-child(even){width:clamp(180px,22vw,270px);height:460px;}.gc:first-child{width:clamp(280px,36vw,440px);}
+.gc img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease),filter .5s;}.gc:hover img{transform:scale(1.05);filter:contrast(1.06);}
+.gc::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,11,.7) 0%,transparent 50%);pointer-events:none;}
+.gc-lbl{position:absolute;bottom:1.5rem;left:1.5rem;z-index:2;font-size:9px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--white);opacity:0;transform:translateY(6px);transition:all .35s;}.gc:hover .gc-lbl{opacity:1;transform:none;}
+.gc-num{position:absolute;top:1.25rem;right:1.25rem;font-family:var(--head);font-size:1.1rem;font-weight:800;color:rgba(255,255,255,.1);z-index:2;}
+/* BOOKING */
+#book{background:var(--bg2);padding:clamp(4rem,8vh,8rem) clamp(1.25rem,4vw,3rem);display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,7rem);align-items:start;border-top:1px solid var(--line);}
+.book-perks{display:flex;flex-direction:column;gap:.85rem;margin:2rem 0 2.5rem;}.perk{display:flex;align-items:flex-start;gap:12px;font-size:13.5px;font-weight:400;color:var(--silver);}.perk-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:.45rem;}
+.book-info{padding-top:2rem;border-top:1px solid var(--line);font-size:13px;font-weight:400;color:var(--muted);line-height:2;}
+.fbox{background:var(--bg3);padding:clamp(1.75rem,3vw,2.75rem);border:1px solid var(--line);position:relative;}.fbox::before{content:'';position:absolute;top:-1px;left:2rem;right:2rem;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.fbox-t{font-family:var(--head);font-size:1.3rem;font-weight:800;color:var(--white);letter-spacing:-.03em;margin-bottom:.25rem;}.fbox-sub{font-size:12px;font-weight:400;color:var(--muted);margin-bottom:2rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}.fg{margin-bottom:.875rem;}
+.fl{display:block;font-size:8.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.fi,.fs,.ft{width:100%;padding:11px 14px;background:var(--bg2);border:1px solid var(--line);color:var(--white);font-family:var(--head);font-size:13px;font-weight:400;outline:none;border-radius:0;appearance:none;transition:border-color .3s;}.fi:focus,.fs:focus,.ft:focus{border-color:var(--gold);}.fi::placeholder,.ft::placeholder{color:var(--muted);}
+.fs{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555566' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:34px;cursor:none;background-color:var(--bg2);}.fs option{background:#16161d;}.ft{resize:vertical;min-height:88px;}
+.fsub{width:100%;padding:13px;background:var(--gold);color:var(--bg);border:none;font-family:var(--head);font-size:9.5px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;cursor:none;transition:background .3s;margin-top:.5rem;}.fsub:hover{background:var(--gold-l);}
+/* CONTACT */
+.contact-bar{background:var(--bg);display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);}.cb{padding:clamp(1.75rem,3vw,2.75rem);border-right:1px solid var(--line);transition:background .3s;}.cb:last-child{border:none;}.cb:hover{background:var(--bg2);}.cb-ico{color:var(--gold);margin-bottom:1.25rem;opacity:.75;}.cb-l{font-size:8.5px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}.cb-v{font-size:13.5px;font-weight:400;color:var(--light);line-height:1.8;}.cb-sub{font-size:11.5px;color:var(--muted);}
+/* FOOTER */
+footer{background:var(--bg2);padding:clamp(3.5rem,6vh,5.5rem) clamp(1.25rem,4vw,3rem) 2rem;border-top:1px solid var(--line);}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:4rem;}
+.ft-brand-n{font-family:var(--head);font-size:1.9rem;font-weight:800;letter-spacing:-.04em;color:var(--white);display:block;margin-bottom:2px;}.ft-brand-s{font-size:8px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+.ft-tag{font-family:var(--serif);font-size:1rem;font-style:italic;font-weight:300;color:var(--muted);margin:1.25rem 0 1.75rem;}
+.ft-soc{display:flex;gap:8px;}.ft-s{width:34px;height:34px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:all .3s;}.ft-s:hover{border-color:var(--gold);color:var(--gold);}
+.ft-col-t{font-size:8.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--silver);margin-bottom:1.25rem;}.ft-col-l{list-style:none;}.ft-col-l li{margin-bottom:.55rem;}.ft-col-l a{text-decoration:none;font-size:13px;font-weight:400;color:var(--muted);transition:color .3s;}.ft-col-l a:hover{color:var(--white);}
+.ft-bot{padding-top:2rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}.ft-copy{font-size:11.5px;font-weight:400;color:var(--muted);}.ft-aura{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:1rem;}
+/* BUTTONS */
+.btn-g{display:inline-flex;align-items:center;gap:10px;padding:12px 26px;background:var(--gold);color:var(--bg);font-family:var(--head);font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;border:none;cursor:none;transition:background .3s;}.btn-g:hover{background:var(--gold-l);}
+.btn-o{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;background:transparent;color:var(--white);font-family:var(--head);font-size:9.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,.2);cursor:none;transition:all .3s;}.btn-o:hover{border-color:var(--white);}
+/* REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .85s var(--ease),transform .85s var(--ease);}.rv.on{opacity:1;transform:none;}
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--bg3);border:1px solid var(--gold);padding:1.1rem 1.5rem;font-size:12.5px;font-weight:400;color:var(--white);z-index:9000;transform:translateY(80px);opacity:0;transition:all .4s var(--ease);max-width:300px;display:flex;align-items:center;gap:10px;}.toast.show{transform:none;opacity:1;}.toast-dot{width:16px;height:16px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--bg);font-weight:700;flex-shrink:0;}
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .ep{grid-template-columns:1fr;direction:ltr!important;}.ep.flip{direction:ltr!important;}.ep-img{min-height:380px;}
+  .stats{grid-template-columns:1fr 1fr;}.ft-grid{grid-template-columns:1fr 1fr;}.contact-bar{grid-template-columns:1fr 1fr;}.sec-top{grid-template-columns:1fr;}
+}
+@media(max-width:900px){
+  .svc-grid{grid-template-columns:1fr 1fr;}#book{grid-template-columns:1fr;gap:3rem;}.hero-cnt{display:none;}.slide-portrait{display:none;}
+}
+@media(max-width:640px){
+  .nav-links,.nav-btn{display:none;}.ham{display:flex;}.svc-grid{grid-template-columns:1fr;}.stats{grid-template-columns:1fr 1fr;}.contact-bar{grid-template-columns:1fr 1fr;}.ft-grid{grid-template-columns:1fr;gap:2rem;}.frow{grid-template-columns:1fr;}.gal-hdr{flex-direction:column;align-items:flex-start;gap:.75rem;}.scroll-hint{display:none;}body{cursor:auto;}#cur,#curR{display:none;}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="curR"></div>
+
+<nav id="nav">
+  <a href="#hero" class="logo"><span class="logo-m">Manura</span><span class="logo-s">Barbershops — Kocaeli</span></a>
+  <ul class="nav-links"><li><a href="#services">Hizmetler</a></li><li><a href="#gallery">Galeri</a></li><li><a href="#about">Hakkımızda</a></li><li><a href="#contact">İletişim</a></li></ul>
+  <div style="display:flex;align-items:center;gap:1rem;"><a href="#book" class="nav-btn">Randevu Al</a><button class="ham" id="ham"><span></span><span></span><span></span></button></div>
+</nav>
+<div class="mob" id="mob">
+  <a href="#services" onclick="cM()">Hizmetler</a><a href="#gallery" onclick="cM()">Galeri</a><a href="#about" onclick="cM()">Hakkımızda</a><a href="#contact" onclick="cM()">İletişim</a><a href="#book" onclick="cM()">Randevu Al</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="slide s1 on">
+    <div class="slide-img"><img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=1600&auto=format&fit=crop&q=75" alt="Berber salonu" loading="eager"></div>
+    <div class="slide-ov"></div>
+    <div class="slide-portrait"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500&auto=format&fit=crop&q=75" alt="Berber işlemi" loading="eager"></div>
+    <div class="slide-body">
+      <div class="slide-tag">Manura Barbershops — Kocaeli</div>
+      <h1 class="slide-h1">Stilini <i>Keşfet.</i><br>Auranı Sahiplen.</h1>
+      <p class="slide-p">Uzman stilistlerimizle farkı yaşa. Her kesim, seni en iyi versiyonuna taşıyan özel bir deneyimdir.</p>
+      <div class="slide-btns"><a href="#book" class="btn-g">Randevu Al <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M7 2l5 5-5 5"/></svg></a><a href="#services" class="btn-o">Hizmetleri Gör</a></div>
+    </div>
+  </div>
+  <div class="slide s2">
+    <div class="slide-img"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1600&auto=format&fit=crop&q=75" alt="Saç kesimi" loading="lazy"></div>
+    <div class="slide-ov"></div>
+    <div class="slide-portrait"><img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=500&auto=format&fit=crop&q=75" alt="Klasik tıraş" loading="lazy"></div>
+    <div class="slide-body">
+      <div class="slide-tag">Premium Bakım</div>
+      <h1 class="slide-h1">Klasik Tıraş,<br><i>Modern</i> Ruh.</h1>
+      <p class="slide-p">Sıcak havlu, tek bıçak ustura ve özel serumlarla geleneksel berber ritüelini yeniden keşfet.</p>
+      <div class="slide-btns"><a href="#book" class="btn-g">Randevu Al <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M7 2l5 5-5 5"/></svg></a><a href="#services" class="btn-o">Hizmetleri Gör</a></div>
+    </div>
+  </div>
+  <div class="slide s3">
+    <div class="slide-img"><img src="https://images.unsplash.com/photo-1622285623814-6bba24b3d1f3?w=1600&auto=format&fit=crop&q=75" alt="Uzman stilist" loading="lazy"></div>
+    <div class="slide-ov"></div>
+    <div class="slide-portrait"><img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=500&auto=format&fit=crop&q=75" alt="Premium ürünler" loading="lazy"></div>
+    <div class="slide-body">
+      <div class="slide-tag">Uzman Ekip</div>
+      <h1 class="slide-h1">Her Kesimde<br><i>Mükemmellik.</i></h1>
+      <p class="slide-p">Yılların birikimi ve özenle şekillendirilen tarzınız, altı uzman stilistimizin elinde hayat bulur.</p>
+      <div class="slide-btns"><a href="#book" class="btn-g">Randevu Al <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M7 2l5 5-5 5"/></svg></a><a href="#services" class="btn-o">Hizmetleri Gör</a></div>
+    </div>
+  </div>
+  <div class="hero-cnt"><span class="hero-cnt-n" id="ctrN">01</span><div class="hero-cnt-l"></div><span class="hero-cnt-t">/ 03</span></div>
+  <div class="scroll-hint"><div class="scroll-hint-bar"></div>Kaydır</div>
+  <div class="hero-bot">
+    <div class="dots"><div class="dot a" data-i="0"></div><div class="dot" data-i="1"></div><div class="dot" data-i="2"></div></div>
+    <div class="arrs"><button class="arr" id="prev"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg></button><button class="arr" id="next"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 2l5 5-5 5"/></svg></button></div>
+  </div>
+  <div class="progress" id="prog"></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-track">
+  <div class="ticker-item">Erkek Saç Kesimi<div class="ticker-sep"></div></div><div class="ticker-item">Sakal Bakımı<div class="ticker-sep"></div></div><div class="ticker-item">Klasik Tıraş<div class="ticker-sep"></div></div><div class="ticker-item">Saç Renklendirme<div class="ticker-sep"></div></div><div class="ticker-item">Premium Paket<div class="ticker-sep"></div></div><div class="ticker-item">Own Your Aura<div class="ticker-sep"></div></div><div class="ticker-item">Manura Barbershops<div class="ticker-sep"></div></div>
+  <div class="ticker-item">Erkek Saç Kesimi<div class="ticker-sep"></div></div><div class="ticker-item">Sakal Bakımı<div class="ticker-sep"></div></div><div class="ticker-item">Klasik Tıraş<div class="ticker-sep"></div></div><div class="ticker-item">Saç Renklendirme<div class="ticker-sep"></div></div><div class="ticker-item">Premium Paket<div class="ticker-sep"></div></div><div class="ticker-item">Own Your Aura<div class="ticker-sep"></div></div><div class="ticker-item">Manura Barbershops<div class="ticker-sep"></div></div>
+</div></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="ep rv">
+    <div class="ep-img"><img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=900&auto=format&fit=crop&q=75" alt="Berber atmosferi" loading="lazy"><div class="ep-img-dim"></div><div class="ep-img-tag">Felsefe</div><div class="ep-img-num">01</div></div>
+    <div class="ep-body"><div class="ep-eye">Felsefe</div><h2 class="ep-h">Sadece Bir Kesim <i>Değil</i></h2><p class="ep-p">Manura Barbershops'ta berber koltuğu, günlük telaşı bir kenara bıraktığın özel bir alan. Her ziyaret, kendine zaman ayırman için bir fırsattır.</p><p class="ep-p">Uzman stilistlerimiz sadece saçını değil, kim olmak istediğini de dinler.</p><a href="#services" class="ep-link">Hizmetleri Keşfet <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M7 2l5 5-5 5"/></svg></a></div>
+  </div>
+  <div class="ep flip rv" style="transition-delay:.1s">
+    <div class="ep-img"><img src="https://images.unsplash.com/photo-1622285623814-6bba24b3d1f3?w=900&auto=format&fit=crop&q=75" alt="Berber aletleri" loading="lazy"><div class="ep-img-dim"></div><div class="ep-img-tag">Zanaat</div><div class="ep-img-num">02</div></div>
+    <div class="ep-body"><div class="ep-eye">Zanaat</div><h2 class="ep-h">Yılların <i>Birikimi</i><br>Her Kesimde</h2><p class="ep-p">Ekibimiz geleneksel berberlik sanatını modern tekniklerle harmanlayan isimlerden oluşur. Her berberimiz yüzlerce saatlik eğitimden geçmiştir.</p><a href="#book" class="ep-link">Randevu Al <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M7 2l5 5-5 5"/></svg></a></div>
+  </div>
+  <div class="ep rv" style="transition-delay:.2s">
+    <div class="ep-img"><img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=900&auto=format&fit=crop&q=75" alt="Premium ürünler" loading="lazy"><div class="ep-img-dim"></div><div class="ep-img-tag">Premium</div><div class="ep-img-num">03</div></div>
+    <div class="ep-body"><div class="ep-eye">Premium</div><h2 class="ep-h">Seçkin <i>Ürünler,</i><br>Üstün Sonuçlar</h2><p class="ep-p">Yalnızca dünya markası profesyonel ürünler kullanıyoruz. American Crew, Layrite, Blind Barber — sadece en iyisi.</p><a href="#services" class="ep-link">Paketleri İncele <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M7 2l5 5-5 5"/></svg></a></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat rv"><div class="stat-n">2400<span>+</span></div><div class="stat-l">Mutlu Müşteri</div></div>
+  <div class="stat rv" style="transition-delay:.08s"><div class="stat-n"><span>6</span></div><div class="stat-l">Uzman Stilist</div></div>
+  <div class="stat rv" style="transition-delay:.16s"><div class="stat-n"><span>%</span>98</div><div class="stat-l">Memnuniyet</div></div>
+  <div class="stat rv" style="transition-delay:.24s"><div class="stat-n">8<span>+</span></div><div class="stat-l">Yıllık Deneyim</div></div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="sec-top rv">
+    <div><div class="sec-eye">Hizmetlerimiz</div><h2 class="sec-h">Ustanın <i>Elinden</i></h2></div>
+    <p style="font-size:14px;font-weight:400;color:var(--silver);line-height:1.9;max-width:400px;">Her hizmet, yılların deneyimi ve özenle seçilmiş premium ürünlerle sunulmaktadır.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc rv"><div class="svc-n">01</div><div class="svc-ico"><svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="var(--gold)" stroke-width="1"><path d="M9 2C5.7 2 3 5 3 9S5.7 16 9 16s6-3 6-7-2.7-7-6-7z"/><path d="M5 7Q9 4 13 7"/><path d="M4 11Q9 15 14 11"/></svg></div><div class="svc-name">Erkek Saç Kesimi</div><p class="svc-desc">Modern ve klasik modeller, kişisel tarzınıza özel yorumlarla hayata geçirilir.</p><div class="svc-price">350 TL</div><div class="svc-dur">~45 dakika</div></div>
+    <div class="svc rv" style="transition-delay:.06s"><div class="svc-n">02</div><div class="svc-ico"><svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="var(--gold)" stroke-width="1"><path d="M4 6Q9 3 14 6Q14 12 9 15Q4 12 4 6Z"/><path d="M7 9Q9 7.5 11 9"/><circle cx="9" cy="11" r="1.5"/></svg></div><div class="svc-name">Sakal Bakımı</div><p class="svc-desc">Yüz hatlarınıza uygun detaylı sakal şekillendirme ve bakım uygulaması.</p><div class="svc-price">250 TL</div><div class="svc-dur">~30 dakika</div></div>
+    <div class="svc rv" style="transition-delay:.12s"><div class="svc-n">03</div><div class="svc-ico"><svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="var(--gold)" stroke-width="1"><path d="M4 14Q7 5 10 8Q13 11 14 4"/><circle cx="4" cy="14" r="1.5" fill="var(--gold)" stroke="none"/><circle cx="14" cy="4" r="1.5" fill="var(--gold)" stroke="none"/></svg></div><div class="svc-name">Saç Renklendirme</div><p class="svc-desc">Premium ürünlerle saç renginizi yenileyin. Renk danışmanlığı dahildir.</p><div class="svc-price">500 TL+</div><div class="svc-dur">~90 dakika</div></div>
+    <div class="svc rv" style="transition-delay:.18s"><div class="svc-n">04</div><div class="svc-ico"><svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="var(--gold)" stroke-width="1"><path d="M5 6L5 13M13 6L13 13"/><path d="M3 6L15 6M5 10L13 10M3 13L15 13"/></svg></div><div class="svc-name">Klasik Tıraş</div><p class="svc-desc">Sıcak havlu ve ustura ile geleneksel berber deneyiminin zirvesi.</p><div class="svc-price">200 TL</div><div class="svc-dur">~40 dakika</div></div>
+    <div class="svc rv" style="transition-delay:.24s"><div class="svc-n">05</div><div class="svc-ico"><svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="var(--gold)" stroke-width="1"><circle cx="9" cy="9" r="7"/><path d="M5 10Q9 6 13 10"/><circle cx="9" cy="7" r="1.5"/></svg></div><div class="svc-name">Saçlı Deri Bakımı</div><p class="svc-desc">Kafa derisi masajı ve özel serumlarla saç sağlığını güçlendirin.</p><div class="svc-price">180 TL</div><div class="svc-dur">~35 dakika</div></div>
+    <div class="svc rv" style="transition-delay:.3s"><div class="svc-n">06</div><div class="svc-ico"><svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="var(--gold)" stroke-width="1"><path d="M9 2L10.5 7H16L11.5 10.5L13 15.5L9 12L5 15.5L6.5 10.5L2 7H7.5Z"/></svg></div><div class="svc-name">Premium Paket</div><p class="svc-desc">Saç kesimi, sakal bakımı ve cilt bakımını kapsayan eksiksiz Manura deneyimi.</p><div class="svc-price">750 TL</div><div class="svc-dur">~2 saat · En Popüler</div></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gal-hdr">
+    <div class="rv"><div class="sec-eye">Galeri</div><h2 class="sec-h" style="font-size:clamp(1.8rem,3.5vw,2.8rem);">Salonumuzdan <i>Kareler</i></h2></div>
+    <div class="gal-hint rv" style="transition-delay:.15s;">← Kaydırın</div>
+  </div>
+  <div class="gal-track" id="galT">
+    <div class="gc"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&auto=format&fit=crop&q=75" alt="Salon" loading="lazy"><div class="gc-lbl">Ana Salon</div><div class="gc-num">01</div></div>
+    <div class="gc"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&auto=format&fit=crop&q=75" alt="Saç kesimi" loading="lazy"><div class="gc-lbl">Saç Kesimi</div><div class="gc-num">02</div></div>
+    <div class="gc"><img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&auto=format&fit=crop&q=75" alt="Berber" loading="lazy"><div class="gc-lbl">Klasik Tıraş</div><div class="gc-num">03</div></div>
+    <div class="gc"><img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=800&auto=format&fit=crop&q=75" alt="Atmosfer" loading="lazy"><div class="gc-lbl">Salon Detayı</div><div class="gc-num">04</div></div>
+    <div class="gc"><img src="https://images.unsplash.com/photo-1622285623814-6bba24b3d1f3?w=600&auto=format&fit=crop&q=75" alt="Ekipman" loading="lazy"><div class="gc-lbl">Ekipman</div><div class="gc-num">05</div></div>
+    <div class="gc"><img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=600&auto=format&fit=crop&q=75" alt="Ürünler" loading="lazy"><div class="gc-lbl">Premium Ürünler</div><div class="gc-num">06</div></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="book">
+  <div class="rv">
+    <div class="sec-eye">Randevu</div>
+    <h2 class="sec-h">Tarzını <i>Yaratmaya</i><br>Başla</h2>
+    <p style="font-size:14px;font-weight:400;color:var(--silver);line-height:1.9;max-width:380px;margin-top:1rem;">Dilediğiniz saati seçin, uzman stilistinizi belirleyin. Randevunuzu anında onaylıyoruz.</p>
+    <div class="book-perks">
+      <div class="perk"><div class="perk-dot"></div><span>Pazartesi – Cumartesi: 09:00 – 19:00</span></div>
+      <div class="perk"><div class="perk-dot"></div><span>Ücretsiz iptal — 24 saat öncesine kadar</span></div>
+      <div class="perk"><div class="perk-dot"></div><span>WhatsApp üzerinden anında onay</span></div>
+      <div class="perk"><div class="perk-dot"></div><span>6 uzman stilist, esnek saatler</span></div>
+    </div>
+    <div class="book-info">Manura Cad. No: 1, Kocaeli / İzmit<br>+90 5XX XXX XX XX<br>info@manurabarbershops.com</div>
+  </div>
+  <div class="fbox rv" style="transition-delay:.15s;">
+    <div class="fbox-t">Randevu Formu</div>
+    <div class="fbox-sub">Formu doldurun, en kısa sürede iletişime geçelim.</div>
+    <div class="frow"><div class="fg"><label class="fl">Ad</label><input type="text" class="fi" placeholder="Adınız"></div><div class="fg"><label class="fl">Soyad</label><input type="text" class="fi" placeholder="Soyadınız"></div></div>
+    <div class="fg"><label class="fl">Telefon</label><input type="tel" class="fi" placeholder="+90 5XX XXX XX XX"></div>
+    <div class="fg"><label class="fl">Hizmet</label><select class="fs"><option value="" disabled selected>Hizmet seçin</option><option>Erkek Saç Kesimi — 350 TL</option><option>Sakal Bakımı — 250 TL</option><option>Saç Renklendirme — 500 TL+</option><option>Saçlı Deri Bakımı — 180 TL</option><option>Klasik Tıraş — 200 TL</option><option>Premium Paket — 750 TL</option></select></div>
+    <div class="frow"><div class="fg"><label class="fl">Tarih</label><input type="date" class="fi" id="bDate"></div><div class="fg"><label class="fl">Saat</label><select class="fs"><option>09:00</option><option>10:00</option><option>11:00</option><option>12:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option><option>18:00</option></select></div></div>
+    <div class="fg"><label class="fl">Notunuz</label><textarea class="ft" placeholder="Özel bir isteğiniz var mı?"></textarea></div>
+    <button class="fsub" onclick="subForm()">Randevu Oluştur →</button>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-bar" id="contact">
+  <div class="cb rv"><div class="cb-ico"><svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1"><path d="M11 2C7.7 2 5 5 5 8.8 5 14 11 20 11 20S17 14 17 8.8C17 5 14.3 2 11 2Z"/><circle cx="11" cy="8.5" r="2.5"/></svg></div><div class="cb-l">Adres</div><div class="cb-v">Manura Cad. No: 1<br>Kocaeli / İzmit<br><span class="cb-sub">Ücretsiz park imkânı</span></div></div>
+  <div class="cb rv" style="transition-delay:.08s;"><div class="cb-ico"><svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1"><path d="M5 4C4.4 4 4 4.5 4 5V7C4 14.2 8.8 19 16 19H18C18.6 19 19 18.5 19 18V15L15.2 14L14.4 16C12.6 15.2 8.8 11.4 8 9.6L10 8.8L9.2 5Z"/></svg></div><div class="cb-l">Telefon</div><div class="cb-v">+90 5XX XXX XX XX<br><span class="cb-sub">WhatsApp aktif</span></div></div>
+  <div class="cb rv" style="transition-delay:.16s;"><div class="cb-ico"><svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="6" width="16" height="11" rx="1"/><path d="M3 8L11 13 19 8"/></svg></div><div class="cb-l">E-Posta</div><div class="cb-v">info@manurabarbershops.com</div></div>
+  <div class="cb rv" style="transition-delay:.24s;"><div class="cb-ico"><svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1"><circle cx="11" cy="11" r="8"/><path d="M11 7V11L14 14"/></svg></div><div class="cb-l">Çalışma Saatleri</div><div class="cb-v">Pzt – Cmt: 09:00 – 19:00<br><span class="cb-sub">Pazar kapalı</span></div></div>
+</div>
+
+<footer>
+  <div class="ft-grid">
+    <div><span class="ft-brand-n">Manura</span><span class="ft-brand-s">Barbershops — Kocaeli</span><p class="ft-tag">"Own your aura."</p><div class="ft-soc"><a href="#" class="ft-s" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="10" height="10" rx="2.5"/><circle cx="8" cy="8" r="2.5"/><circle cx="11.5" cy="4.5" r=".5" fill="currentColor" stroke="none"/></svg></a><a href="#" class="ft-s" aria-label="WhatsApp"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><circle cx="8" cy="8" r="6"/><path d="M5.5 5.5Q6 5 6.5 5.5L7.5 7L6.5 7.5Q7 9 8.5 9.5L9 8.5L10.5 9.5Q11 10 10.5 10.5Q8 12 5.5 5.5"/></svg></a><a href="#" class="ft-s" aria-label="TikTok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M9 2v8.5a2.5 2.5 0 1 1-2.5-2.5H9"/><path d="M9 2a3.5 3.5 0 0 0 3.5 3.5"/></svg></a></div></div>
+    <div><div class="ft-col-t">Sayfalar</div><ul class="ft-col-l"><li><a href="#services">Hizmetler</a></li><li><a href="#gallery">Galeri</a></li><li><a href="#about">Hakkımızda</a></li><li><a href="#contact">İletişim</a></li></ul></div>
+    <div><div class="ft-col-t">Hizmetler</div><ul class="ft-col-l"><li><a href="#book">Saç Kesimi</a></li><li><a href="#book">Sakal Bakımı</a></li><li><a href="#book">Renklendirme</a></li><li><a href="#book">Premium Paket</a></li></ul></div>
+    <div><div class="ft-col-t">İletişim</div><ul class="ft-col-l"><li><a href="#">Kocaeli / İzmit</a></li><li><a href="#">+90 5XX XXX XX XX</a></li><li><a href="#book">Randevu Al</a></li></ul></div>
+  </div>
+  <div class="ft-bot"><span class="ft-copy">© 2025 Manura Barbershops. Tüm hakları saklıdır.</span><span class="ft-aura">Own your aura.</span></div>
+</footer>
+
+<div class="toast" id="toast"><div class="toast-dot">✓</div>Randevu talebiniz alındı. WhatsApp ile iletişime geçeceğiz.</div>
+
+<script>
+const cd=document.getElementById('cur'),cr=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px';});
+(function l(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(l);})();
+document.querySelectorAll('a,button,.svc,.gc,.dot').forEach(el=>{el.addEventListener('mouseenter',()=>{cd.style.width='10px';cd.style.height='10px';cr.style.width='48px';cr.style.height='48px';});el.addEventListener('mouseleave',()=>{cd.style.width='5px';cd.style.height='5px';cr.style.width='28px';cr.style.height='28px';});});
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>50));
+const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+let mO=false;
+ham.addEventListener('click',()=>{mO=!mO;mob.classList.toggle('open',mO);const s=ham.querySelectorAll('span');mO?(s[0].style.transform='rotate(45deg) translate(4px,5px)',s[1].style.opacity='0',s[2].style.transform='rotate(-45deg) translate(4px,-5px)'):s.forEach(x=>{x.style.transform='';x.style.opacity='';});});
+function cM(){mO=false;mob.classList.remove('open');ham.querySelectorAll('span').forEach(x=>{x.style.transform='';x.style.opacity='';});}
+let ci=0;
+const slides=document.querySelectorAll('.slide'),dots=document.querySelectorAll('.dot'),prog=document.getElementById('prog'),ctrN=document.getElementById('ctrN');
+const DUR=6800;let tmr;
+function goTo(i){slides[ci].classList.remove('on');dots[ci].classList.remove('a');ci=(i+slides.length)%slides.length;slides[ci].classList.add('on');dots[ci].classList.add('a');if(ctrN)ctrN.textContent=String(ci+1).padStart(2,'0');prog.style.transition='none';prog.style.width='0%';clearTimeout(tmr);setTimeout(()=>{prog.style.transition='width '+DUR+'ms linear';prog.style.width='100%';},20);tmr=setTimeout(()=>goTo(ci+1),DUR);}
+document.getElementById('next').addEventListener('click',()=>goTo(ci+1));
+document.getElementById('prev').addEventListener('click',()=>goTo(ci-1));
+dots.forEach((d,i)=>d.addEventListener('click',()=>goTo(i)));
+goTo(0);
+let tx=0;document.querySelector('.hero').addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});document.querySelector('.hero').addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;Math.abs(d)>45&&goTo(ci+(d>0?1:-1));});
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:.07,rootMargin:'0px 0px -24px 0px'});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+const gt=document.getElementById('galT');let gd=false,gx,gs;
+gt.addEventListener('mousedown',e=>{gd=true;gx=e.pageX-gt.offsetLeft;gs=gt.scrollLeft;gt.style.userSelect='none';});
+document.addEventListener('mouseup',()=>{gd=false;gt.style.userSelect='';});
+gt.addEventListener('mousemove',e=>{if(!gd)return;e.preventDefault();gt.scrollLeft=gs-(e.pageX-gt.offsetLeft-gx)*1.3;});
+const bd=document.getElementById('bDate');if(bd){bd.min=new Date().toISOString().split('T')[0];bd.value=bd.min;}
+function subForm(){const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),4500);}
+</script>
+</body>
+</html>
