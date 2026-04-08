@@ -1,0 +1,1176 @@
+/* Fonts loaded via <link> in index.html for faster LCP — do not add @import here */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Sophisticated Light Gray (Zinc 50) */
+    --background: 240 5% 96%;
+    --foreground: 240 10% 4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 4%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 4%;
+
+    --primary: 240 10% 4%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 5% 90%;
+    --secondary-foreground: 240 10% 4%;
+
+    --muted: 240 5% 85%;
+    --muted-foreground: 240 5% 35%;
+
+    --accent: 240 5% 90%;
+    --accent-foreground: 240 10% 4%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 5% 85%;
+    --input: 240 5% 85%;
+    --ring: 240 10% 4%;
+
+    --radius: 0.5rem;
+  }
+}
+
+.theme-dark {
+  /* Sophisticated Dark (Zinc 950) */
+  --background: 240 10% 4%;
+  --foreground: 240 5% 96%;
+
+  --card: 240 10% 7%;
+  --card-foreground: 240 5% 96%;
+
+  --popover: 240 10% 4%;
+  --popover-foreground: 240 5% 96%;
+
+  --primary: 240 5% 96%;
+  --primary-foreground: 240 10% 4%;
+
+  --secondary: 240 5% 15%;
+  --secondary-foreground: 240 5% 96%;
+
+  --muted: 240 5% 15%;
+  --muted-foreground: 240 5% 65%;
+
+  --accent: 240 5% 15%;
+  --accent-foreground: 240 5% 96%;
+
+  --border: 240 5% 15%;
+  --input: 240 5% 15%;
+  --ring: 240 5% 96%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+/* ===== GRAIN / NOISE TEXTURE ===== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ===== MARQUEE ===== */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 120s linear infinite;
+}
+
+@keyframes marquee-seamless {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee-seamless {
+  animation: marquee-seamless 120s linear infinite;
+}
+
+/* ===== FLOAT / PARALLAX ===== */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ===== GLOW PULSE ===== */
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-glow {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* ===== TEXT REVEAL ===== */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== LINE DRAW ===== */
+@keyframes line-draw {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+/* ===== SMOOTH SCROLL ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== SELECTION ===== */
+::selection {
+  background: hsl(var(--primary) / 0.3);
+  color: hsl(var(--foreground));
+}
+
+/* ===== CUSTOM SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+}
+
+/* ===== IMAGE HOVER ===== */
+.img-hover-zoom {
+  overflow: hidden;
+}
+
+.img-hover-zoom img {
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.img-hover-zoom:hover img {
+  transform: scale(1.08);
+}
+
+/* ===== MAGNETIC BUTTON ===== */
+.btn-mag.interactive {
+  position: relative;
+  z-index: 10;
+}
+
+
+.btn-magnetic {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-magnetic:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== LINK UNDERLINE ===== */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: hsl(var(--primary));
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ===== SECTION LABEL ===== */
+.section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: hsl(var(--primary));
+}
+
+.section-heading {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  line-height: 1.05;
+  color: hsl(var(--foreground));
+}
+
+/* ===== RESPONSIVE IMPROVEMENTS ===== */
+
+/* MOBILE — Extra Small Screens (< 480px) */
+@media (max-width: 479px) {
+  .section-label {
+    font-size: 8px;
+    letter-spacing: 0.25em;
+  }
+
+  .btn-magnetic {
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+  }
+
+  h1 {
+    line-height: 1.08;
+  }
+
+  /* Reduce decorative lines */
+  div[class*="w-10"][class*="h-px"],
+  div[class*="w-14"][class*="h-px"] {
+    width: 1rem !important;
+  }
+}
+
+/* MOBILE — Small Screens (480px - 640px) */
+@media (max-width: 640px) {
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+  }
+
+  /* Better button sizing */
+  .btn-magnetic {
+    padding: 0.875rem 1.25rem;
+  }
+
+  /* Improved mobile spacing */
+  body > * {
+    overflow-x: hidden;
+  }
+}
+
+/* TABLET — Medium Screens (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .section-label {
+    font-size: 9px;
+  }
+
+  section {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+/* ===== GALLERY GRID RESPONSIVE FIX ===== */
+/* This fixes the masonry grid on mobile where col-span won't work properly */
+@media (max-width: 768px) {
+  /* Gallery container on mobile */
+  section#gallery .grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-auto-rows: 160px !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Reset complex spans on mobile */
+  section#gallery .grid > div {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+}
+
+@media (max-width: 480px) {
+  section#gallery .grid {
+    grid-auto-rows: 140px !important;
+    gap: 0.375rem !important;
+  }
+}
+
+/* ===== IMAGE OPTIMIZATION ===== */
+/* Ensure images scale responsively without overflow */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.img-hover-zoom {
+  overflow: hidden;
+  width: 100%;
+}
+
+.img-hover-zoom img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== HERO SECTION MOBILE FIXES ===== */
+@media (max-width: 768px) {
+  section[class*="hero"] .font-serif[class*="text"] {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    line-height: 1.1;
+  }
+
+  /* Scale down decorative background text */
+  span[class*="text-\\[18vw\\]"] {
+    font-size: 12vw !important;
+  }
+
+  /* Better button wrapping */
+  div[class*="flex-wrap"] {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  section[class*="hero"] .font-serif[class*="text"] {
+    font-size: clamp(1.75rem, 6vw, 3rem);
+  }
+}
+
+/* ===== SERVICE CARDS MOBILE ===== */
+@media (max-width: 768px) {
+  /* Service card image heights */
+  section#services img {
+    height: 200px;
+  }
+
+  /* Service titles responsive */
+  section#services h3 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  /* Service description text */
+  section#services p[class*="text-\\[13px\\]"] {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 480px) {
+  section#services img {
+    height: 180px;
+  }
+
+  section#services h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* ===== SECTION PADDING OPTIMIZATION ===== */
+@media (max-width: 768px) {
+  section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  section {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  section .max-w-screen-2xl {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* ===== HEADER MOBILE OPTIMIZATION ===== */
+@media (max-width: 639px) {
+  /* Fixed height so top: 50% works for absolute logo centering */
+  header .h-20 {
+    height: 4rem;
+  }
+
+  /* Responsive logo */
+  header img {
+    max-height: 2rem;
+  }
+
+  /* Mobile menu text sizing */
+  .fixed.inset-0 .font-serif {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+  }
+}
+
+@media (max-width: 640px) {
+  /* Button text on mobile header */
+  header a[class*="text-\\[10px\\]"],
+  header a[class*="text-\\[11px\\]"] {
+    font-size: 9px;
+  }
+}
+
+/* ===== ABOUT SECTION MOBILE ===== */
+@media (max-width: 768px) {
+  section#about img {
+    height: 50vh;
+  }
+
+  section#about .gap-16,
+  section#about .lg\:gap-20 {
+    gap: 2rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  section#about img {
+    height: 40vh;
+  }
+
+  section#about .gap-16 {
+    gap: 1.5rem !important;
+  }
+}
+
+/* ===== CONTACT SECTION MOBILE ===== */
+@media (max-width: 768px) {
+  section#contact .gap-16,
+  section#contact .lg\:gap-24 {
+    gap: 2rem !important;
+  }
+
+  section#contact .border-l-2 {
+    border-left-width: 2px;
+    padding-left: 1rem;
+  }
+}
+
+/* ===== FORM OPTIMIZATION ===== */
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.75rem;
+    line-height: 1.5;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+  }
+}
+
+/* ===== VISUAL ENHANCEMENTS & SUBTLE EFFECTS ===== */
+/* Subtle shadow for depth on cards */
+.rounded-lg {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+@media (hover: hover) {
+  .rounded-lg:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+button,
+a {
+  transition: all 0.3s ease;
+}
+
+/* Better accessibility with focus states */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ===== ANIMATION PERFORMANCE ===== */
+@media (max-width: 768px) {
+  /* Slightly slower animations on mobile for smoother performance */
+  .animate-marquee,
+  .animate-marquee-seamless {
+    animation-duration: 150s !important;
+  }
+
+  .animate-float {
+    animation-duration: 8s !important;
+  }
+}
+
+/* ===== ACCESSIBILITY IMPROVEMENTS ===== */
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  body {
+    --foreground: 0 0% 0%;
+    --background: 0 0% 100%;
+  }
+
+  .theme-dark {
+    --foreground: 0 0% 100%;
+    --background: 0 0% 0%;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .animate-marquee,
+  .animate-marquee-seamless,
+  .animate-float,
+  .animate-glow {
+    animation: none !important;
+  }
+
+  .pointer-events-none {
+    display: none !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+  }
+}
+
+/* ===== HEADER MOBILE FIXES ===== */
+/* Mobile header layout improvements */
+@media (max-width: 639px) {
+  header {
+    z-index: 50;
+  }
+
+  /* Fixed height so top: 50% works for absolute logo centering */
+  header .h-20 {
+    height: 4rem;
+  }
+
+  /* Better header padding */
+  header .px-6.md\:px-10 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Responsive logo sizing */
+  header img {
+    max-height: 2.5rem;
+    width: auto;
+  }
+
+  /* Improved flex alignment */
+  header [class*="flex"][class*="items-center"] {
+    gap: 1rem;
+  }
+}
+
+/* ===== MOBILE HEADER NAVBAR (Top Bar) ===== */
+@media (max-width: 768px) {
+  /* Mobile header top bar — better alignment and spacing */
+  header .px-6.md\:px-10.h-20 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    height: 3.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Mobile CTA button sizing and styling */
+  header .flex.lg\:hidden a {
+    font-size: 9px;
+    font-weight: 500;
+    padding: 0.5rem 0.875rem;
+    border-radius: 9999px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Mobile "Randevu" button — primary style */
+  header .flex.lg\:hidden a[href="/randevu"] {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: 1px solid hsl(var(--primary));
+    font-weight: 600;
+  }
+
+  header .flex.lg\:hidden a[href="/randevu"]:active,
+  header .flex.lg\:hidden a[href="/randevu"]:hover {
+    opacity: 0.85;
+    transform: scale(0.98);
+  }
+
+  /* Mobile "Ana Sayfa" (Home) button — secondary style */
+  header .flex.lg\:hidden a[href="/"] {
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--foreground) / 0.2);
+    background-color: transparent;
+  }
+
+  header .flex.lg\:hidden a[href="/"]:active,
+  header .flex.lg\:hidden a[href="/"]:hover {
+    border-color: hsl(var(--foreground) / 0.4);
+    background-color: hsl(var(--foreground) / 0.05);
+  }
+
+  /* Hamburger menu button — more visible and interactive */
+  header button[type="button"],
+  header > div > button {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: hsl(var(--foreground));
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  header button[type="button"]:active,
+  header > div > button:active,
+  header button[type="button"]:hover,
+  header > div > button:hover {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+
+  /* Center logo — fixed height on parent ensures top: 50% calculates correctly */
+  header a[href="#"] {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 15;
+    padding: 0;
+    line-height: 0;
+  }
+
+  header a[href="#"] img {
+    height: 2.25rem;
+    width: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  /* Mobile header flex wrapper alignment */
+  header .flex.lg\:hidden {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* Prevent header content from overlapping */
+  header .hidden.lg\:flex {
+    display: none !important;
+  }
+}
+
+/* Extra small screens — optimize further */
+@media (max-width: 480px) {
+  header .px-6.md\:px-10.h-20 {
+    padding: 0.625rem 0.75rem;
+    min-height: 3.375rem;
+  }
+
+  header .flex.lg\:hidden a {
+    font-size: 8px;
+    padding: 0.375rem 0.75rem;
+  }
+
+  header button[type="button"],
+  header > div > button {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  header a[href="#"] img {
+    height: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header .px-6.md\:px-10 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  header .h-20 {
+    min-height: 3.5rem;
+  }
+
+  header .flex.lg\:hidden a {
+    font-size: 8px;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* ===== MOBILE FULLSCREEN MENU (Hamburger Dropdown) ===== */
+/* This is the animated menu that appears when hamburger is clicked */
+@media (max-width: 639px) {
+  /* Mobile menu overlay — solid background, prevents scrolling */
+  header .fixed.inset-0 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    background-color: hsl(var(--background)) !important;
+    background-image: none !important;
+    backdrop-filter: none !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5rem;
+  }
+
+  /* Close button — positioned at top right */
+  header .fixed.inset-0 button {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 50;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: hsl(var(--foreground));
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  header .fixed.inset-0 button:hover {
+    opacity: 0.5;
+    transform: scale(1.15) rotate(90deg);
+  }
+
+  header .fixed.inset-0 button:active {
+    opacity: 0.4;
+    transform: scale(1.1) rotate(90deg);
+  }
+
+  /* X icon styling — ensure high visibility */
+  header .fixed.inset-0 button svg {
+    stroke-width: 1.5;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: hsl(var(--foreground));
+  }
+
+  header .fixed.inset-0 button:hover svg {
+    color: hsl(var(--primary));
+  }
+
+  /* Menu content wrapper — centered with proper spacing */
+  header .fixed.inset-0 > div:first-of-type {
+    width: 100%;
+    padding: 0 1.5rem;
+    gap: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Menu navigation links */
+  header .fixed.inset-0 a[href*="#"],
+  header .fixed.inset-0 a[href="/"] {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.75rem, 6vw, 2.75rem);
+    font-weight: 300;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: hsl(var(--foreground));
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: block;
+    padding: 0.5rem 0;
+    text-align: center;
+  }
+
+  header .fixed.inset-0 a[href*="#"]:hover,
+  header .fixed.inset-0 a[href="/"]:hover {
+    color: hsl(var(--primary));
+    transform: translateX(8px);
+  }
+
+  header .fixed.inset-0 a[href*="#"]:active,
+  header .fixed.inset-0 a[href="/"]:active {
+    transform: translateX(4px) scale(0.98);
+  }
+
+  /* Menu CTA buttons section — second div wrapper */
+  header .fixed.inset-0 > div:nth-of-type(2) {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 2rem;
+    width: 100%;
+  }
+
+  /* Menu buttons styling */
+  header .fixed.inset-0 a {
+    font-size: 11px;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* "Bizi Ara" button (phone icon) */
+  header .fixed.inset-0 a[href^="tel:"] {
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--foreground) / 0.2);
+    background-color: transparent;
+  }
+
+  header .fixed.inset-0 a[href^="tel:"]:hover {
+    border-color: hsl(var(--foreground) / 0.4);
+    background-color: hsl(var(--foreground) / 0.05);
+    color: hsl(var(--primary));
+  }
+
+  /* "Randevu Al" button (primary) */
+  header .fixed.inset-0 a[href="/randevu"][class*="bg-primary"],
+  header .fixed.inset-0 a[href="/randevu"] {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: 1px solid hsl(var(--primary));
+  }
+
+  header .fixed.inset-0 a[href="/randevu"]:hover {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+
+  /* "Ana Sayfaya Dön" button (secondary) */
+  header .fixed.inset-0 a[href="/"][class*="border"],
+  header .fixed.inset-0 a[href="/"] {
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--foreground) / 0.2);
+    background-color: transparent;
+  }
+
+  header .fixed.inset-0 a[href="/"]:hover {
+    border-color: hsl(var(--foreground) / 0.4);
+    background-color: hsl(var(--foreground) / 0.05);
+  }
+
+  /* Social icons in menu */
+  header .fixed.inset-0 > div:nth-of-type(3) {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    justify-content: center;
+    width: 100%;
+  }
+
+  header .fixed.inset-0 a[class*="w-10"][class*="h-10"],
+  header .fixed.inset-0 a[class*="w-10"] {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid hsl(var(--foreground) / 0.15);
+    border-radius: 0.375rem;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    text-decoration: none;
+  }
+
+  header .fixed.inset-0 a[class*="w-10"][class*="h-10"]:hover,
+  header .fixed.inset-0 a[class*="w-10"]:hover {
+    border-color: hsl(var(--primary) / 0.5);
+    color: hsl(var(--primary));
+    transform: scale(1.05);
+  }
+
+  /* Social icons SVG styling */
+  header .fixed.inset-0 svg {
+    color: hsl(var(--foreground) / 0.6);
+    transition: color 0.3s ease;
+  }
+
+  header .fixed.inset-0 a[class*="w-10"] svg:hover,
+  header .fixed.inset-0 a[class*="w-10"]:hover svg {
+    color: hsl(var(--primary));
+  }
+}
+
+/* ===== HEADER ANIMATION & TRANSITIONS ===== */
+/* Smooth menu animations */
+@media (max-width: 639px) {
+  /* Menu fade in/out */
+  header .fixed.inset-0 {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Menu links stagger animation */
+  header .fixed.inset-0 a[href*="#"],
+  header .fixed.inset-0 a[href="/"] {
+    animation: slideUp 0.4s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Close button — extra small screens (was incorrectly nested before) */
+@media (max-width: 480px) {
+  header .fixed.inset-0 button {
+    top: 1.25rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  header .fixed.inset-0 button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+/* ===== HEADER DESKTOP NAV FIXES ===== */
+/* Desktop navigation bar — ensure no mobile issues */
+@media (max-width: 768px) {
+  /* Hide desktop nav on mobile */
+  header nav {
+    display: none !important;
+  }
+}
+
+/* ===== HEADER Z-INDEX MANAGEMENT ===== */
+/* Ensure proper stacking */
+header {
+  position: fixed;
+  z-index: 50;
+}
+
+header .fixed.inset-0 {
+  z-index: 40;
+}
+
+header button {
+  position: relative;
+  z-index: 10;
+}
+
+header a[href="#"] {
+  position: relative;
+  z-index: 15;
+}
+
+/* ===== MOBILE SOCIAL ICON TOUCH TARGETS ===== */
+/* Ensure minimum 44px touch target on all clickable icons */
+@media (max-width: 639px) {
+  header .fixed.inset-0 a[class*="w-10"] {
+    width: 2.75rem;   /* 44px */
+    height: 2.75rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+  }
+}
+
+/* ===== SERVICE CARD MOBILE TOUCH TARGET ===== */
+/* "İncele →" link — minimum 44px tap area with padding trick */
+@media (max-width: 639px) {
+  section#services a[href="/randevu"] {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 0;
+    min-height: 2.75rem;
+  }
+}
+
+/* ===== WHATSAPP FLOATING BUTTON ===== */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 49;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: #25D366;
+  color: #fff;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+  text-decoration: none;
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.55);
+}
+
+.whatsapp-btn:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 639px) {
+  .whatsapp-btn {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+}
+
+/* ===== HERO MOBILE TEXT SCALING ===== */
+/* Prevent heading overflow on very small screens */
+@media (max-width: 390px) {
+  .hero-heading {
+    font-size: clamp(2.25rem, 8vw, 3.2rem) !important;
+    line-height: 1.06 !important;
+  }
+}
+
+/* ===== BODY TEXT MINIMUM SIZE ===== */
+/* Prevent text below 13px on mobile — improves readability */
+@media (max-width: 639px) {
+  .font-sans {
+    -webkit-text-size-adjust: 100%;
+  }
+}
