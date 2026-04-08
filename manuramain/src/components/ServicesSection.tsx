@@ -118,7 +118,9 @@ const ServicesSection = () => {
                                 <div className="md:col-span-2 flex items-center justify-between md:flex-col md:items-end gap-3">
                                     <span className="font-serif text-2xl text-primary font-light">{service.price}</span>
                                     <a
-                                        href="/randevu"
+                                        href="https://rande.vu/manura-barber"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="font-sans text-[10px] uppercase tracking-[0.18em] text-foreground/30 group-hover:text-primary transition-colors duration-400 flex items-center gap-2 py-3 px-1"
                                         aria-label={`${service.title} için randevu al`}
                                     >

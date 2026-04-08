@@ -159,7 +159,9 @@ const HeroSection = () => {
                             >
                                 <MagneticElement>
                                     <a
-                                        href="/randevu"
+                                        href="https://rande.vu/manura-barber"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="btn-magnetic font-sans text-[11px] uppercase tracking-[0.18em] bg-primary text-primary-foreground px-8 py-4 rounded-full hover:bg-primary/90 transition-all duration-400 flex items-center gap-3"
                                     >
                                         Randevu Al

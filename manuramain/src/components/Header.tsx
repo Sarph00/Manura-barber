@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import logo from "@/assets/logo.webp";
@@ -15,8 +14,6 @@ const navLinks = [
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const location = useLocation();
-    const isBookingPage = location.pathname === "/randevu";
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 50);
@@ -40,23 +37,14 @@ const Header = () => {
             <div className="px-6 md:px-10 h-20 flex items-center justify-center lg:justify-between relative">
                 {/* Mobile: CTA + Hamburger (LEFT on mobile) */}
                 <div className="flex lg:hidden items-center gap-3 absolute left-6 md:left-10">
-                    {isBookingPage ? (
-                        <a
-                            href="/"
-                            className="text-[10px] font-sans uppercase tracking-[0.15em] border border-foreground/15 text-foreground px-4 py-2 rounded-full"
-                        >
-                            Ana Sayfa
-                        </a>
-                    ) : (
-                        <a
-                            href="https://rande.vu/manura-barber"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[10px] font-sans uppercase tracking-[0.15em] bg-primary text-primary-foreground px-4 py-2 rounded-full"
-                        >
-                            Randevu
-                        </a>
-                    )}
+                    <a
+                        href="https://rande.vu/manura-barber"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] font-sans uppercase tracking-[0.15em] bg-primary text-primary-foreground px-4 py-2 rounded-full"
+                    >
+                        Randevu
+                    </a>
                     <button className="text-foreground z-10 w-9 h-9 flex items-center justify-center" onClick={() => setIsOpen(!isOpen)}>
                         {isOpen ? <X size={22} /> : <Menu size={22} />}
                     </button>
@@ -64,29 +52,17 @@ const Header = () => {
 
                 {/* Left: Desktop CTA */}
                 <div className="hidden lg:flex items-center gap-3">
-                    {isBookingPage ? (
-                        <MagneticElement>
-                            <a
-                                href="/"
-                                className="btn-magnetic text-[11px] font-sans uppercase tracking-[0.18em] border border-foreground/15 text-foreground px-6 py-2.5 rounded-full hover:border-foreground/40 transition-all duration-300 flex items-center gap-2"
-                            >
-                                <span className="text-sm">←</span>
-                                Ana Sayfa
-                            </a>
-                        </MagneticElement>
-                    ) : (
-                        <MagneticElement>
-                            <a
-                                href="https://rande.vu/manura-barber"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn-magnetic text-[11px] font-sans uppercase tracking-[0.18em] bg-primary text-primary-foreground px-6 py-2.5 rounded-full hover:bg-primary/90 transition-all duration-300 flex items-center gap-2"
-                            >
-                                Randevu Al
-                                <span className="text-sm">→</span>
-                            </a>
-                        </MagneticElement>
-                    )}
+                    <MagneticElement>
+                        <a
+                            href="https://rande.vu/manura-barber"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-magnetic text-[11px] font-sans uppercase tracking-[0.18em] bg-primary text-primary-foreground px-6 py-2.5 rounded-full hover:bg-primary/90 transition-all duration-300 flex items-center gap-2"
+                        >
+                            Randevu Al
+                            <span className="text-sm">→</span>
+                        </a>
+                    </MagneticElement>
                     <MagneticElement>
                         <a
                             href="tel:+905335071966"
@@ -193,25 +169,15 @@ const Header = () => {
                                 <Phone size={13} />
                                 Bizi Ara
                             </a>
-                            {isBookingPage ? (
-                                <a
-                                    href="/"
-                                    onClick={() => setIsOpen(false)}
-                                    className="text-[11px] uppercase tracking-[0.18em] border border-foreground/20 text-foreground px-8 py-3.5 rounded-full flex items-center gap-2"
-                                >
-                                    <span className="text-xl leading-none -mt-1">←</span> Ana Sayfaya Dön
-                                </a>
-                            ) : (
-                                <a
-                                    href="https://rande.vu/manura-barber"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={() => setIsOpen(false)}
-                                    className="text-[11px] uppercase tracking-[0.18em] bg-primary text-primary-foreground px-8 py-3.5 rounded-full flex items-center gap-2"
-                                >
-                                    Randevu Al <span>→</span>
-                                </a>
-                            )}
+                            <a
+                                href="https://rande.vu/manura-barber"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => setIsOpen(false)}
+                                className="text-[11px] uppercase tracking-[0.18em] bg-primary text-primary-foreground px-8 py-3.5 rounded-full flex items-center gap-2"
+                            >
+                                Randevu Al <span>→</span>
+                            </a>
                         </motion.div>
 
                         {/* Mobile social icons */}
