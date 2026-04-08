@@ -46,7 +46,7 @@ const Header = () => {
                 <div className="hidden lg:flex items-center gap-3">
                     <MagneticElement>
                         <a
-                            href="tel:+905335071966"
+                            href="tel:+905335780141"
                             className="btn-magnetic text-[11px] font-sans uppercase tracking-[0.18em] text-foreground/70 hover:text-foreground px-5 py-2.5 border border-foreground/15 rounded-full hover:border-foreground/40 transition-all duration-300 flex items-center gap-2"
                         >
                             <Phone size={12} />
@@ -144,7 +144,7 @@ const Header = () => {
                             className="flex flex-col gap-3 mt-12 items-center"
                         >
                             <a
-                                href="tel:+905335071966"
+                                href="tel:+905335780141"
                                 className="text-[11px] uppercase tracking-[0.18em] border border-foreground/20 px-8 py-3.5 text-foreground rounded-full flex items-center gap-2"
                             >
                                 <Phone size={13} />

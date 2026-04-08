@@ -159,7 +159,7 @@ const BlogAnatomikKesim = () => {
                             Harita'da Görüntüle
                         </a>
                         <a
-                            href="https://wa.me/905335071966"
+                            href="https://wa.me/905335780141"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-8 py-3 border border-primary/30 text-foreground font-medium text-sm rounded-lg hover:border-primary/60 transition"
